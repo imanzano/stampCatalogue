@@ -18,7 +18,7 @@ import static java.lang.Thread.sleep;
  * Receive and url to parser and return a Map of items based on the expression list
  */
 
-public abstract class HtmlParser<T> implements Parser<T> {
+abstract class HtmlParser<T> implements Parser<T> {
 
     private static final Logger log = LoggerFactory.getLogger(HtmlParser.class);
 
@@ -33,7 +33,7 @@ public abstract class HtmlParser<T> implements Parser<T> {
     private ElementParser<T> parser = null;
     private boolean beNice = false;
 
-    protected void setContentParser(ElementParser<T> p)
+    void setContentParser(ElementParser<T> p)
     {
         parser = p;
     }

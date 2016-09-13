@@ -8,12 +8,12 @@ import org.jsoup.nodes.Element;
 /**
  * JsoupParser
  */
-public abstract class ElementParser<T> {
+abstract class ElementParser<T> {
 
     private String name = null;
     private String expression = null;
 
-    protected String getExpression()
+    String getExpression()
     {
         return expression;
     }
@@ -22,7 +22,7 @@ public abstract class ElementParser<T> {
     protected T evaluate(Element element) throws IOException{ throw new UnsupportedOperationException();}
 
     /** @param e Css Expression to use */
-    public ElementParser<T> using(String e)
+    ElementParser<T> using(String e)
     {
         expression = e;
         return this;

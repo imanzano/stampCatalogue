@@ -19,7 +19,7 @@ public abstract class ListElementParser<T> extends HtmlParser<List<T>> {
     protected String getSelectExpression() { return "";}
 
     /** Default constructor */
-    public ListElementParser()
+    protected ListElementParser()
     {
         final ElementParser<List<T>> parser = new ListItemParser<>(new ElementParser<T>() {
 
