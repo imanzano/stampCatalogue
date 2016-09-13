@@ -16,12 +16,11 @@ public class CountryListParser extends ListElementParser<Tuple<String,String>> {
         protected String getUrl() { return "http://colnect.com/en/stamps/countries";}
 
         protected Tuple<String,String> build(Element element) {
-
-                final Tuple<String,String> tuple = Tuple.tuple("","");
-
-                return tuple;
+                final String href = element.attr("href");
+                final String country = element.getElementsByClass("flag32").attr("title");
+                return Tuple.tuple(country,href);
         }
-        protected String getSelectExpression() { return ".pl_300 a";}
+        protected String getSelectExpression() { return "#pl_300 a";}
 
         public static void main (String[] args) throws IOException {
                 CountryListParser c = new CountryListParser();
