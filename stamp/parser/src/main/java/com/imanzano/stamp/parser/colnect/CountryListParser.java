@@ -8,6 +8,8 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.List;
 
+import static com.imanzano.stamp.parser.colnect.Constants.BASE_URL;
+
 /**
  * Parser country page and return the available Countries with the URLs
  */
@@ -18,7 +20,7 @@ public class CountryListParser extends ListElementParser<Tuple<String,String>> {
         protected Tuple<String,String> build(Element element) {
                 final String href = element.attr("href");
                 final String country = element.getElementsByClass("flag32").attr("title");
-                return Tuple.tuple(country,href);
+                return Tuple.tuple(country,BASE_URL +href);
         }
         protected String getSelectExpression() { return "#pl_300 a";}
 
