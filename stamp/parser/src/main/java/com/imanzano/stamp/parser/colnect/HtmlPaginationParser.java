@@ -68,7 +68,7 @@ public class HtmlPaginationParser<T> {
         final StampPageParser stampPageParser = new StampPageParser("http://colnect.com/en/stamps/list/country/15824-Abu_Dhabi/year/1972");
         final List<List<Stamp>> process = pParser.using(stampPageParser)
                                                 .pageCountResolver(integer -> 2)
-                                                .pageUrlResolver(integer -> "/page/" + integer)
+                                                .pageUrlResolver(integer -> "http://colnect.com/en/stamps/list/country/15824-Abu_Dhabi/year/1972/page/" + integer)
                                                 .process();
         process.toString();
     }

@@ -43,6 +43,7 @@ public abstract class HtmlParser<T> implements Parser<T> {
     @Override
     public HtmlParser<T> source(String s)
     {
+        element = null;
         url = s;
         return this;
     }
@@ -50,6 +51,8 @@ public abstract class HtmlParser<T> implements Parser<T> {
     @Override
     public HtmlParser<T> fromString(String h)
     {
+        element = null;
+        url = null;
         html = h;
         return this;
     }
@@ -57,6 +60,8 @@ public abstract class HtmlParser<T> implements Parser<T> {
     @Override
     public HtmlParser<T> from(Element e)
     {
+        url = null;
+        html = null;
         element = e;
         return this;
     }
