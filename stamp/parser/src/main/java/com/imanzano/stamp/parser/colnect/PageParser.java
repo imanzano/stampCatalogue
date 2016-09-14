@@ -27,7 +27,6 @@ public class PageParser<T> extends HtmlParser<PageInfo<T>> {
     protected ElementConverter<PageInfo<T>> getConverter() {
         return e -> {
             final PageInfo<T> page = new PageInfo<>();
-            //element.select(".pager_page:last-child").get(0).attr("href").split("/")
 
             page.pages = pageCountResolver.apply(e);
 

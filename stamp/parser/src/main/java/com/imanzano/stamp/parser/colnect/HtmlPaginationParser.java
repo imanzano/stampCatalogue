@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * Support parse a Html page using Pagination
  */
@@ -68,7 +70,7 @@ public class HtmlPaginationParser<T> {
 
         final StampPageParser stampPageParser = new StampPageParser("http://colnect.com/en/stamps/list/country/15824-Abu_Dhabi/year/1972");
         final List<List<Stamp>> process = pParser.using(stampPageParser)
-                                                .pageCountResolver(integer -> 2)
+                                                .pageCountResolver(e -> parseInt(e.select(".pager_page:last-child").get(0).attr("href").split("page/")[1]))
                                                 .pageUrlResolver(integer -> "http://colnect.com/en/stamps/list/country/15824-Abu_Dhabi/year/1972/page/" + integer)
                                                 .process();
 
