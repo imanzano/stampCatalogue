@@ -2,8 +2,8 @@ package com.imanzano.stamp.parser.colnect;
 
 import com.imanzano.sc.common.parser.Tuple;
 
+import com.imanzano.sc.common.parser.html.ElementConverter;
 import com.imanzano.sc.common.parser.html.ListElementParser;
-import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,16 +17,19 @@ public class CountryListParser extends ListElementParser<Tuple<String,String>> {
 
         protected String getUrl() { return "http://colnect.com/en/stamps/countries";}
 
-        protected Tuple<String,String> build(Element element) {
-                final String href = element.attr("href");
-                final String country = element.getElementsByClass("flag32").attr("title");
-                return Tuple.tuple(country,BASE_URL +href);
+        protected ElementConverter<Tuple<String,String>> getConverter() {
+                return e -> {
+                        final String href = e.attr("href");
+                        final String country = e.getElementsByClass("flag32").attr("title");
+                        return Tuple.tuple(country,BASE_URL +href);
+                };
         }
+
         protected String getSelectExpression() { return "#pl_300 a";}
 
         public static void main (String[] args) throws IOException {
                 CountryListParser c = new CountryListParser();
-                final List<Tuple<String, String>> process = c.process();
+                final List<Tuple<String, String>> process = c.parse();
                 process.toString();
         }
 }

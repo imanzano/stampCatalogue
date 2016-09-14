@@ -4,6 +4,7 @@ package com.imanzano.sc.common.parser.html;
 import com.imanzano.sc.common.parser.Parser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +16,10 @@ import static java.lang.Thread.sleep;
 
 /**
  * Basic Html Parser worker
- * Receive and url to parser and return a Map of items based on the expression list
+ * Receive and url to processor and return a Map of items based on the expression list
  */
 
-abstract class HtmlParser<T> implements Parser<T> {
+public abstract class HtmlParser<T> implements Parser<T> {
 
     private static final Logger log = LoggerFactory.getLogger(HtmlParser.class);
 
@@ -30,12 +31,13 @@ abstract class HtmlParser<T> implements Parser<T> {
 
     private String url = null;
     private String html = null;
-    private ElementParser<T> parser = null;
+    private Element element = null;
+    private ElementProcessor<T> processor = null;
     private boolean beNice = false;
 
-    void setContentParser(ElementParser<T> p)
+    protected void setProcessor(ElementProcessor<T> p)
     {
-        parser = p;
+        processor = p;
     }
 
     @Override
@@ -52,23 +54,30 @@ abstract class HtmlParser<T> implements Parser<T> {
         return this;
     }
 
+    @Override
+    public HtmlParser<T> from(Element e)
+    {
+        element = e;
+        return this;
+    }
+
     public String getSource()
     {
         return url;
     }
 
     @Override
-    public T process() throws IOException {
+    public T parse() throws IOException {
+        if (element != null)
+            return processor.process(element);
 
         final Document doc;
         if (html != null)
             doc = Jsoup.parseBodyFragment(html);
         else
-        {
             doc = parseExternalSource();
-        }
 
-        return parser.parse(doc).second();
+        return processor.process(doc);
     }
 
     private Document parseExternalSource() throws IOException {
