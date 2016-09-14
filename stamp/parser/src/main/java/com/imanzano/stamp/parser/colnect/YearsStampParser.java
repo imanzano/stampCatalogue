@@ -3,7 +3,6 @@ package com.imanzano.stamp.parser.colnect;
 import com.imanzano.sc.common.parser.Tuple;
 import com.imanzano.sc.common.parser.html.ElementConverter;
 import com.imanzano.sc.common.parser.html.ListElementParser;
-import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.List;

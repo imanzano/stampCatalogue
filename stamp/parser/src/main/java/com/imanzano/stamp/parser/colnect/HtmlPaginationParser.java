@@ -1,6 +1,5 @@
 package com.imanzano.stamp.parser.colnect;
 
-import com.imanzano.sc.common.parser.Parser;
 import com.imanzano.sc.common.parser.html.HtmlParser;
 import org.jsoup.nodes.Element;
 
