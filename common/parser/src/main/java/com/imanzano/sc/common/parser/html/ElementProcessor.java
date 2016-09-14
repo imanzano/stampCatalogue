@@ -19,7 +19,7 @@ public class ElementProcessor<T> {
     public ElementProcessor() {}
 
     /** */
-    ElementProcessor(ElementConverter<T> c)
+    public ElementProcessor(ElementConverter<T> c)
     {
         converter  = c;
     }
@@ -40,7 +40,7 @@ public class ElementProcessor<T> {
     }
 
     /** @param e Css Expression to use */
-    ElementProcessor<T> using(String e)
+    public ElementProcessor<T> using(String e)
     {
         expression = e;
         return this;

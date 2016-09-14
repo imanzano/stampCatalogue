@@ -117,4 +117,8 @@ public abstract class HtmlParser<T> implements Parser<T> {
     {
         beNice = true;
     }
+
+    public ElementProcessor<T> getProcessor() {
+        return processor;
+    }
 }

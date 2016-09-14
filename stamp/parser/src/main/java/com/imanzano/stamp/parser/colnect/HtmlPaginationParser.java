@@ -1,6 +1,7 @@
 package com.imanzano.stamp.parser.colnect;
 
 import com.imanzano.sc.common.parser.Parser;
+import com.imanzano.sc.common.parser.html.HtmlParser;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
@@ -13,12 +14,12 @@ import java.util.function.Function;
  */
 public class HtmlPaginationParser<T> {
 
-    private Parser<T> parser = null;
+    private HtmlParser<T> parser = null;
     private Function<Integer,String> urlResolver = null;
     private Function<Element,Integer> pageCountResolver = null;
 
     /** Set Parser */
-    public HtmlPaginationParser<T> using(Parser<T> p)
+    public HtmlPaginationParser<T> using(HtmlParser<T> p)
     {
         parser = p;
         return this;
@@ -43,12 +44,13 @@ public class HtmlPaginationParser<T> {
      * @return A List<T> **/
     public List<T> process() throws IOException {
 
-        int page = 1;
         final List<T> ret = new ArrayList<>();
 
         final PageParser<T> pageParser = new PageParser<>(parser,pageCountResolver);
         final PageInfo<T> process = pageParser.parse();
+        ret.add(process.content);
 
+        int page = 2;
         while (page <= process.pages) {
 
             final T result = parser.source(urlResolver.apply(page)).parse();
