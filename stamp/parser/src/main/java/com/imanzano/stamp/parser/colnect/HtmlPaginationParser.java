@@ -6,8 +6,10 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Support parse a Html page using Pagination
@@ -70,6 +72,8 @@ public class HtmlPaginationParser<T> {
                                                 .pageCountResolver(integer -> 2)
                                                 .pageUrlResolver(integer -> "http://colnect.com/en/stamps/list/country/15824-Abu_Dhabi/year/1972/page/" + integer)
                                                 .process();
-        process.toString();
+
+        final List<Stamp> collect = process.stream().flatMap(Collection::stream).collect(Collectors.toList());
+        collect.size();
     }
 }
