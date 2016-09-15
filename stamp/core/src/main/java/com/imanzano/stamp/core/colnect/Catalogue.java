@@ -40,7 +40,10 @@ public class Catalogue {
 
         final StampPageParser stampPageParser = new StampPageParser(countryName,stampPageUrl);
         final List<List<Stamp>> process = pParser.using(stampPageParser)
-                .pageCountResolver(e -> parseInt(e.select(".pager_page:last-child").get(0).attr("href").split("page/")[1]))
+                .pageCountResolver(e ->
+                                e.select(".pager_page:last-child").isEmpty() ?  1 :
+                                    parseInt(e.select(".pager_page:last-child").get(0).attr("href").split("page/")[1])
+                )
                 .pageUrlResolver(integer -> stampPageUrl+"/page/" + integer)
                 .process();
 

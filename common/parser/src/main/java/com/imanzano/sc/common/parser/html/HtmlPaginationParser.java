@@ -2,7 +2,6 @@ package com.imanzano.sc.common.parser.html;
 
 import org.jsoup.nodes.Element;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;

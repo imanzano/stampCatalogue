@@ -36,7 +36,7 @@ public class StampPageParser extends ListElementParser<Stamp> {
             stamp.setImageUrl(img);
 
             final String catalogCode = e.select(".i_d dt:contains(Catalog codes:)").first().nextElementSibling().text();
-            
+
             if (catalogCode != null) {
                 stamp.setCatalogReferences(Stream.of(catalogCode.split(","))
                                                     .map(CatalogReference::create)
