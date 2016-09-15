@@ -72,17 +72,22 @@ public abstract class HtmlParser<T> implements Parser<T> {
     }
 
     @Override
-    public T parse() throws IOException {
-        if (element != null)
-            return processor.process(element);
+    public T parse() throws ParseException {
+        try {
+            if (element != null)
+                return processor.process(element);
 
-        final Document doc;
-        if (html != null)
-            doc = Jsoup.parseBodyFragment(html);
-        else
-            doc = parseExternalSource();
+            final Document doc;
+            if (html != null)
+                doc = Jsoup.parseBodyFragment(html);
+            else
+                doc = parseExternalSource();
 
-        return processor.process(doc);
+            return processor.process(doc);
+        } catch (final IOException e)
+        {
+            throw new ParseException(e);
+        }
     }
 
     private Document parseExternalSource() throws IOException {

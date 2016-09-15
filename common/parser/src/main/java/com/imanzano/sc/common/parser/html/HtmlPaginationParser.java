@@ -1,16 +1,11 @@
-package com.imanzano.stamp.parser.colnect;
+package com.imanzano.sc.common.parser.html;
 
-import com.imanzano.sc.common.parser.html.HtmlParser;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * Support parse a Html page using Pagination
@@ -45,7 +40,7 @@ public class HtmlPaginationParser<T> {
     /**
      * Process all the pages and return the List<T>
      * @return A List<T> **/
-    public List<T> process() throws IOException {
+    public List<T> process()  {
 
         final List<T> ret = new ArrayList<>();
 
@@ -62,19 +57,5 @@ public class HtmlPaginationParser<T> {
         }
 
         return ret;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        final HtmlPaginationParser<List<Stamp>> pParser = new HtmlPaginationParser<>();
-
-        final StampPageParser stampPageParser = new StampPageParser("http://colnect.com/en/stamps/list/country/15824-Abu_Dhabi/year/1972");
-        final List<List<Stamp>> process = pParser.using(stampPageParser)
-                                                .pageCountResolver(e -> parseInt(e.select(".pager_page:last-child").get(0).attr("href").split("page/")[1]))
-                                                .pageUrlResolver(integer -> "http://colnect.com/en/stamps/list/country/15824-Abu_Dhabi/year/1972/page/" + integer)
-                                                .process();
-
-        final List<Stamp> collect = process.stream().flatMap(Collection::stream).collect(Collectors.toList());
-        collect.size();
     }
 }

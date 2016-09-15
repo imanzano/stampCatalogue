@@ -12,6 +12,7 @@ public class Stamp {
     private String imageUrl;
     private String issueDate;
     private List<CatalogReference> catalogReferences = new ArrayList<>();
+    private String country;
 
     public String getName() {
         return name;
@@ -51,5 +52,13 @@ public class Stamp {
 
     public void setCatalogReferences(List<CatalogReference> catalogReferences) {
         this.catalogReferences = catalogReferences;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
     }
 }
